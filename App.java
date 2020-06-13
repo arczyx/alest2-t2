@@ -1,5 +1,5 @@
 public class App {
-    static String path = "casof.txt";
+    static String path = "casop.txt";
 
     public static void main(String[] args) throws Exception {
 
@@ -11,7 +11,7 @@ public class App {
 
         l1.percorrerLabirinto();
 
-        // l1.mostrarLabirinto();
+        //l1.mostrarLabirinto();
 
         System.out.println("ACABOU");
 

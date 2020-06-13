@@ -35,28 +35,30 @@ public class Labirinto {
 
                     if (matriz[linha][coluna] != '*') {
 
-                        // ANDANDO PARA DIREITA
+
+                        // ADICIONA NA FILA OS LUGARES QUE ELE TEM QUE EXPLORAR
+                        // ANDANDO PARA ESQUERDA
                         if (matriz[linha][coluna - 1] != null && matriz[linha][coluna - 1] != '*') {
                             filaColuna.add(coluna - 1);
                             filaLinha.add(linha);
                             numeroDeExploracoes++;
                         }
 
-                        // ANDANDO PARA BAIXO
+                        // ANDANDO PARA CIMA
                         if (matriz[linha - 1][coluna] != null && matriz[linha - 1][coluna] != '*') {
                             filaColuna.add(coluna);
                             filaLinha.add(linha - 1);
                             numeroDeExploracoes++;
                         }
 
-                        // ANDANDO PARA ESQUERDA
+                        // ANDANDO PARA DIREITA
                         if (matriz[linha][coluna + 1] != null && matriz[linha][coluna + 1] != '*') {
                             filaColuna.add(coluna + 1);
                             filaLinha.add(linha);
                             numeroDeExploracoes++;
                         }
 
-                        // ANDANDO PARA CIMA
+                        // ANDANDO PARA BAIXO
                         if (matriz[linha + 1][coluna] != null && matriz[linha + 1][coluna] != '*') {
                             filaColuna.add(coluna);
                             filaLinha.add(linha + 1);
@@ -69,7 +71,9 @@ public class Labirinto {
 
                     filaLinha.remove();
                     filaColuna.remove();
-
+                    //numeroDeExploracoes é o contador de novas exploracoes a ser feitas, sera transferido para o aux
+                    //aux sao exploracoes pendentes, o total que tem que ser feitas
+                    //numeroDeVoltas é o numero de exploracoes que estao sendo feitas
                     if (numeroDeVoltas >= aux) {
                         totalDistancia++;
                         aux = numeroDeExploracoes;
