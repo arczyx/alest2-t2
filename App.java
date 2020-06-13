@@ -1,5 +1,5 @@
 public class App {
-    static String path = "casoh.txt";
+    static String path = "casof.txt";
 
     public static void main(String[] args) throws Exception {
 

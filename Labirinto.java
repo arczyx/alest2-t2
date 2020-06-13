@@ -36,38 +36,31 @@ public class Labirinto {
                     if (matriz[linha][coluna] != '*') {
 
                         // ANDANDO PARA DIREITA
-                        if (matriz[linha][coluna - 1] != null) {
-                            if (matriz[linha][coluna - 1] != '*') {
-                                filaColuna.add(coluna - 1);
-                                filaLinha.add(linha);
-                                numeroDeExploracoes++;
-                            }
+                        if (matriz[linha][coluna - 1] != null && matriz[linha][coluna - 1] != '*') {
+                            filaColuna.add(coluna - 1);
+                            filaLinha.add(linha);
+                            numeroDeExploracoes++;
                         }
-                        // ANDANDO PARA BAIXO
-                        if (matriz[linha - 1][coluna] != null) {
-                            if (matriz[linha - 1][coluna] != '*') {
-                                filaColuna.add(coluna);
-                                filaLinha.add(linha - 1);
-                                numeroDeExploracoes++;
-                            }
-                        }
-                        // ANDANDO PARA ESQUERDA
-                        if (matriz[linha][coluna + 1] != null) {
-                            if (matriz[linha][coluna + 1] != '*') {
-                                filaColuna.add(coluna + 1);
-                                filaLinha.add(linha);
-                                numeroDeExploracoes++;
-                            }
 
+                        // ANDANDO PARA BAIXO
+                        if (matriz[linha - 1][coluna] != null && matriz[linha - 1][coluna] != '*') {
+                            filaColuna.add(coluna);
+                            filaLinha.add(linha - 1);
+                            numeroDeExploracoes++;
+                        }
+
+                        // ANDANDO PARA ESQUERDA
+                        if (matriz[linha][coluna + 1] != null && matriz[linha][coluna + 1] != '*') {
+                            filaColuna.add(coluna + 1);
+                            filaLinha.add(linha);
+                            numeroDeExploracoes++;
                         }
 
                         // ANDANDO PARA CIMA
-                        if (matriz[linha + 1][coluna] != null) {
-                            if (matriz[linha + 1][coluna] != '*') {
-                                filaColuna.add(coluna);
-                                filaLinha.add(linha + 1);
-                                numeroDeExploracoes++;
-                            }
+                        if (matriz[linha + 1][coluna] != null && matriz[linha + 1][coluna] != '*') {
+                            filaColuna.add(coluna);
+                            filaLinha.add(linha + 1);
+                            numeroDeExploracoes++;
                         }
 
                         matriz[linha][coluna] = '*';
