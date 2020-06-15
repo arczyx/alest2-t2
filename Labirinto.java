@@ -6,6 +6,12 @@ public class Labirinto {
     private Character[][] matriz;
     private Queue<Integer> filaLinha = new LinkedList<Integer>();
     private Queue<Integer> filaColuna = new LinkedList<Integer>();
+    private int linha = 0;
+    private int coluna = 0;
+
+    public enum Direcao {
+        DIREITA, ESQUERDA, BAIXO, CIMA
+    }
 
     public Labirinto(Arquivo arquivo) throws IOException {
         this.matriz = arquivo.lerArquivo();
@@ -13,14 +19,37 @@ public class Labirinto {
         this.filaColuna.add(arquivo.getColA());
     }
 
+    public boolean podeAndar(Direcao direcao) {
+        int linOffset = linha;
+        int colOffset = coluna;
+        switch (direcao) {
+            case ESQUERDA:
+                colOffset = colOffset - 1;
+                break;
+            case DIREITA:
+                colOffset = colOffset + 1;
+                break;
+            case BAIXO:
+                linOffset = linOffset - 1;
+                break;
+            case CIMA:
+                linOffset = linOffset + 1;
+                break;
+        }
+        if (matriz[linOffset][colOffset] != null && matriz[linOffset][colOffset] != '*') { 
+            filaColuna.add(colOffset);
+            filaLinha.add(linOffset);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void percorrerLabirinto() {
 
         System.out.println("entrei");
 
         boolean encontrou = false;
-
-        int linha = 0;
-        int coluna = 0;
 
         int numeroDeExploracoes = 0, numeroDeVoltas = 0, totalDistancia = 0, aux = 1;
 
@@ -35,33 +64,21 @@ public class Labirinto {
 
                     if (matriz[linha][coluna] != '*') {
 
-
                         // ADICIONA NA FILA OS LUGARES QUE ELE TEM QUE EXPLORAR
-                        // ANDANDO PARA ESQUERDA
-                        if (matriz[linha][coluna - 1] != null && matriz[linha][coluna - 1] != '*') {
-                            filaColuna.add(coluna - 1);
-                            filaLinha.add(linha);
+
+                        if (podeAndar(Direcao.ESQUERDA)) {
                             numeroDeExploracoes++;
                         }
 
-                        // ANDANDO PARA CIMA
-                        if (matriz[linha - 1][coluna] != null && matriz[linha - 1][coluna] != '*') {
-                            filaColuna.add(coluna);
-                            filaLinha.add(linha - 1);
+                        if (podeAndar(Direcao.DIREITA)) {
                             numeroDeExploracoes++;
                         }
 
-                        // ANDANDO PARA DIREITA
-                        if (matriz[linha][coluna + 1] != null && matriz[linha][coluna + 1] != '*') {
-                            filaColuna.add(coluna + 1);
-                            filaLinha.add(linha);
+                        if (podeAndar(Direcao.CIMA)) {
                             numeroDeExploracoes++;
                         }
 
-                        // ANDANDO PARA BAIXO
-                        if (matriz[linha + 1][coluna] != null && matriz[linha + 1][coluna] != '*') {
-                            filaColuna.add(coluna);
-                            filaLinha.add(linha + 1);
+                        if (podeAndar(Direcao.BAIXO)) {
                             numeroDeExploracoes++;
                         }
 
@@ -71,9 +88,10 @@ public class Labirinto {
 
                     filaLinha.remove();
                     filaColuna.remove();
-                    //numeroDeExploracoes é o contador de novas exploracoes a ser feitas, sera transferido para o aux
-                    //aux sao exploracoes pendentes, o total que tem que ser feitas
-                    //numeroDeVoltas é o numero de exploracoes que estao sendo feitas
+                    // numeroDeExploracoes é o contador de novas exploracoes a ser feitas, sera
+                    // transferido para o aux
+                    // aux sao exploracoes pendentes, o total que tem que ser feitas
+                    // numeroDeVoltas é o numero de exploracoes que estao sendo feitas
                     if (numeroDeVoltas >= aux) {
                         totalDistancia++;
                         aux = numeroDeExploracoes;
